@@ -1,5 +1,36 @@
 package cinema
 
+
+fun main() {
+    println("Enter the number of rows: ")
+    val rows = readLine()!!.toInt()
+    println("Enter the number of seats in each row: ")
+    val seatsInRow = readLine()!!.toInt()
+    val cinemaArray = Array(rows) { Array(seatsInRow) { 'S' } }
+    var purchasedTickets = 0
+    var currentIncome = 0
+    val totalIncome = totalIncome(seatsInRow, rows)
+
+    var menuInput = printMenu()
+
+    while (menuInput != 0) {
+        when (menuInput) {
+            1 -> showSeats(cinemaArray)
+            2 -> {
+                val ticket = buyTicket(rows, seatsInRow, cinemaArray)
+                if (ticket != 0) {
+                    currentIncome += ticket
+                    purchasedTickets++
+                }
+            }
+            3 -> statics(purchasedTickets, currentIncome, totalIncome, rows, seatsInRow)
+        }
+        // show menu again and wait for user input
+        menuInput = printMenu()
+    }
+}
+
+
 fun printMenu(): Int {
     println(
         "\n1. Show the seats\n" +
@@ -34,7 +65,7 @@ fun buyTicket(rows: Int, seatsInRow: Int, cinemaArray: Array<Array<Char>>): Int 
     println("Enter a seat number in that row: ")
     val seatNo = readLine()!!.toInt()
 
-    var ticketPrice = 0
+    val ticketPrice: Int
     return try {
         if (cinemaArray[rowNo - 1][seatNo - 1] == 'B') {
             println("\nThat ticket has already been purchased!")
@@ -75,33 +106,4 @@ fun statics(
                 "Current income: $$currentIncome\n" +
                 "Total income: $$totalIncome"
     )
-}
-
-fun main() {
-    println("Enter the number of rows: ")
-    val rows = readLine()!!.toInt()
-    println("Enter the number of seats in each row: ")
-    val seatsInRow = readLine()!!.toInt()
-    val cinemaArray = Array(rows) { Array(seatsInRow) { 'S' } }
-    var purchasedTickets = 0
-    var currentIncome = 0
-    val totalIncome = totalIncome(seatsInRow, rows)
-
-    var menuInput = printMenu()
-
-    while (menuInput != 0) {
-        when (menuInput) {
-            1 -> showSeats(cinemaArray)
-            2 -> {
-                val ticket = buyTicket(rows, seatsInRow, cinemaArray)
-                if (ticket != 0) {
-                    currentIncome += ticket
-                    purchasedTickets++
-                }
-            }
-            3 -> statics(purchasedTickets, currentIncome, totalIncome, rows, seatsInRow)
-        }
-        // show menu again and wait for user input
-        menuInput = printMenu()
-    }
 }
