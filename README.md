@@ -9,3 +9,5 @@ Kotlin console application from [JetBrains Academy](https://hyperskill.org/proje
 - [x] functions.
 - [x] loops.
 - [x] conditional statements.
+
+#### find the code for this project here `cinema/Cinema.kt`
